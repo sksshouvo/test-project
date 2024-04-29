@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Wildside\Userstamps\Userstamps;
+use Auth;
 
 class LeaveApplication extends Model
 {
-    use HasFactory;
+    use HasFactory, Userstamps;
 
-    protected $fillable = ["start_date", "end_date", "leave_type", "note"];
+    protected $fillable = ["start_date", "end_date", "leave_type", "reason"];
 
     public function scopedateRangeWiseFilter(Builder $query, $startDate, $endDate) : void {
         $query->where('start_date', $startDate)->where('end_date', $endDate);
@@ -18,5 +20,15 @@ class LeaveApplication extends Model
 
     public function scopeWithoutStatusWiseFilter(Builder $query, $status) : void {
         $query->where('status', '!=' ,$status);
+    }
+
+    public function scopeUserTypeWisesFilter(Builder $query) : void {
+        if (!Auth::guard('admin')->user()) {
+            $query->where("created_by", Auth::id());
+        }
+    }
+
+    public function scopeUserWiseFilter(Builder $query) : void {
+        $query->where('created_by', Auth::id());
     }
 }

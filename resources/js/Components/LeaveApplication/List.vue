@@ -1,3 +1,8 @@
+<script setup>
+import SecondaryButton from '@/Components/SecondaryButton.vue'
+import DangerButton from '@/Components/DangerButton.vue'
+</script>
+
 <template>
   <div>
     <div class="flex flex-col">
@@ -20,13 +25,16 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="border-b border-neutral-200 dark:border-white/10">
-                  <td class="whitespace-nowrap px-6 py-4 font-medium">1</td>
-                  <td class="whitespace-nowrap px-6 py-4">Mark</td>
-                  <td class="whitespace-nowrap px-6 py-4">Otto</td>
-                  <td class="whitespace-nowrap px-6 py-4">@mdo</td>
-                  <td class="whitespace-nowrap px-6 py-4">@mdo</td>
-                  <td class="whitespace-nowrap px-6 py-4">@mdo</td>
+                <tr class="border-b border-neutral-200 dark:border-white/10" v-for="(leave_app, index) in ($page.props.leave_applications.data)" :key="index">
+                  <td class="whitespace-nowrap px-6 py-4 font-medium">{{index+1}}</td>
+                  <td class="whitespace-nowrap px-6 py-4">{{leave_app.start_date}}</td>
+                  <td class="whitespace-nowrap px-6 py-4">{{leave_app.end_date}}</td>
+                  <td class="whitespace-nowrap px-6 py-4">{{leave_app.status}}</td>
+                  <td class="whitespace-nowrap px-6 py-4">{{leave_app.leave_type}}</td>
+                  <td class="whitespace-nowrap px-6 py-4">
+                    <SecondaryButton class="mr-2"> View </SecondaryButton>
+                    <DangerButton> Delete </DangerButton>
+                  </td>
                 </tr>
               </tbody>
             </table>

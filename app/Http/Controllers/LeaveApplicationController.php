@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLeaveApplicationRequest;
 use App\Http\Requests\UpdateLeaveApplicationRequest;
 use App\Interface\LeaveApplication\LeaveApplicationService;
-use Log;
-use DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class LeaveApplicationController extends Controller
 {
@@ -38,7 +39,13 @@ public function store(StoreLeaveApplicationRequest $request)
             DB::beginTransaction();
             $leaveApplication = $this->leaveApplicationService->create($request->all());
             DB::commit();
-            return to_route('dashboard');
+            return Inertia::render('Dashboard', [
+                'logged_in' => true,
+                'user_type' => 'Employee',
+                'page_name' => 'Dashboard',
+                'leave_applications' => $this->leaveApplicationService->getAll(),
+                'form_submit' => true
+            ]);
         } catch (\Exception $e) {
             
             DB::rollback();

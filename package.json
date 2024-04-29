@@ -18,6 +18,7 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
+        "@fortawesome/vue-fontawesome": "^3.0.6",
         "moment": "^2.30.1"
     }
 }

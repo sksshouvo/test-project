@@ -36,7 +36,7 @@ class CheckLeave implements DataAwareRule, ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $checkLeave = LeaveApplication::dateRangeWiseFilter($this->data['start_date'], $value)->withoutStatusWiseFilter("rejected")->first();
+        $checkLeave = LeaveApplication::dateRangeWiseFilter($this->data['start_date'], $value)->withoutStatusWiseFilter("rejected")->userWiseFilter()->first();
         
         if ($checkLeave) {
             $fail('There is existing leave application against these dates, try different dates');
