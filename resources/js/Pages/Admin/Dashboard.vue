@@ -21,7 +21,7 @@ import { Head, Link } from "@inertiajs/vue3";
           <div
             class="rounded-md shadow-md h-40 w-1/2 m-10 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 flex-initial"
           >
-            <Link :href="href" :class="classes">
+            <Link href="/admin/leaves" :class="classes">
                 <p class="p-5">Leave Applications</p>  
                 <p class="px-5">Total Leave Requets: {{$page.props.total_leaves}}</p>  
                 <p class="px-5">Total Pending Requets: {{$page.props.total_pending_leaves}}</p>  

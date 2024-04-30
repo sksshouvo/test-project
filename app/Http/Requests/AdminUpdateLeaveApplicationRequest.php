@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
-class UpdateLeaveApplicationRequest extends FormRequest
+use Illuminate\Validation\Rules\Enum;
+use App\Enums\Status;
+class AdminUpdateLeaveApplicationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +23,8 @@ class UpdateLeaveApplicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "status" => ["required"],
+            "comment" => ["nullable", "string"]
         ];
     }
 }

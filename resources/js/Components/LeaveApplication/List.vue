@@ -3,38 +3,50 @@ import SecondaryButton from "@/Components/SecondaryButton.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import DangerButton from "@/Components/DangerButton.vue";
 import Modal from "@/Components/Modal.vue";
-import Details from '@/Components/LeaveApplication/Details.vue'
-import { useForm } from '@inertiajs/vue3';
+import Details from "@/Components/LeaveApplication/Details.vue";
+import { useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 
 const form = useForm({
-    id : ''
+  id: "",
+  comment: ""
 });
 
-const showModal = ref(false);
+const isShowModal = ref(false);
 const LeaveDetails = ref([]);
 
-const showDetails = async (leaveAppId) => {
-  const url = `leave/${leaveAppId}`;
-  const response = await fetch(url);
-  LeaveDetails.value = await response.json();
-  showModal.value = true;
+const showDetails = (leaveApp) => {
+  LeaveDetails.value = leaveApp;
+  isShowModal.value = true;
 };
 
 const closeModal = () => {
-  showModal.value = false;
+  isShowModal.value = false;
 };
 
 const deleteLeave = (leaveAppId) => {
-
   if (confirm("Are you sure?")) {
-      const url = 'leave.destroy'
-      form.id = leaveAppId
-      form.delete(route(url,form), {
+    const url = "leave.destroy";
+    form.id = leaveAppId;
+    form.delete(route(url, form), {
       preserveScroll: true,
     });
   }
-  return ;
+  return;
+};
+
+const updateLeave = (leaveAppId, status) => {
+  const url = "admin.leave.update";
+  form.id = leaveAppId;
+  form.status = status;
+
+  form.put(route(url, form), {
+    preserveScroll: true,
+    onSuccess: () => {
+      closeModal()
+      form.reset()
+    }
+  });
 };
 </script>
 
@@ -91,11 +103,16 @@ const deleteLeave = (leaveAppId) => {
                   <td class="whitespace-nowrap px-6 py-4">
                     <SecondaryButton
                       class="mr-2"
-                      @click="showDetails(leave_app.id)"
+                      @click="showDetails(leave_app)"
                     >
                       View
                     </SecondaryButton>
-                    <DangerButton @click="deleteLeave(leave_app.id)"> Delete </DangerButton>
+                    <DangerButton
+                      v-if="!$page.props.admin"
+                      @click="deleteLeave(leave_app.id)"
+                    >
+                      Delete
+                    </DangerButton>
                   </td>
                 </tr>
               </tbody>
@@ -105,11 +122,23 @@ const deleteLeave = (leaveAppId) => {
       </div>
     </div>
   </div>
-  <Modal :show="showModal" @close="closeModal">
-    <Details :leave_details="LeaveDetails"/>
+  <Modal :show="isShowModal" @close="closeModal">
+    <Details :leave_details="LeaveDetails" v-model="form.comment" />
     <div class="m-6 flex justify-end">
-      <PrimaryButton v-if="$page.props.admin" class="mr-5"> Approve </PrimaryButton>
-      <DangerButton v-if="$page.props.admin" class="mr-5"> Reject </DangerButton>
+      <PrimaryButton
+        v-if="$page.props.admin"
+        @click="updateLeave(LeaveDetails.id, 'approved')"
+        class="mr-5"
+      >
+        Approve
+      </PrimaryButton>
+      <DangerButton
+        v-if="$page.props.admin"
+        @click="updateLeave(LeaveDetails.id, 'rejected')"
+        class="mr-5"
+      >
+        Reject
+      </DangerButton>
       <SecondaryButton @click="closeModal"> Close </SecondaryButton>
     </div>
   </Modal>

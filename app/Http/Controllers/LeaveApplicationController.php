@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Interface\LeaveApplication\LeaveApplicationService;
+use App\Http\Requests\AdminUpdateLeaveApplicationRequest;
 use App\Http\Requests\StoreLeaveApplicationRequest;
 use App\Http\Requests\UpdateLeaveApplicationRequest;
-use App\Interface\LeaveApplication\LeaveApplicationService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -95,5 +97,27 @@ class LeaveApplicationController extends Controller
                 'form_submit' => true
             ]);
         }
+    }
+
+    public function listForAdmin() {
+        return Inertia::render('Admin/Leaves', [
+            'admin' => Auth::guard('admin')->user(),
+            'logged_in' => true,
+            'user_type' => 'Admin',
+            'page_name' => 'Leave Application List',
+            'leave_applications' => $this->leaveApplicationService->getAll(),
+        ]);
+    }
+
+    public function updateStatus(AdminUpdateLeaveApplicationRequest $request, $id) {
+        $leaveUpdate = $this->leaveApplicationService->updateStatus($id, $request->status, $request->comment);
+        
+        return Inertia::render('Admin/Leaves', [
+            'admin' => Auth::guard('admin')->user(),
+            'logged_in' => true,
+            'user_type' => 'Admin',
+            'page_name' => 'Leave Application List',
+            'leave_applications' => $this->leaveApplicationService->getAll(),
+        ]);
     }
 }

@@ -59,4 +59,13 @@ class LeaveApplicationService implements LeaveApplicationInterface {
         return $this->leaveApplication::with(['creator'])->userTypeWisesFilter()->statusWiseFilter($status)->get();
     }
 
+    public function updateStatus($id, $status, $comment = NULL){
+        $leaveApplication = $this->leaveApplication->findOrfail($id);
+        $leaveApplication->status = $status ?? "pending";
+        $leaveApplication->comment = $comment ?? NULL;
+        $leaveApplication->updator_type = $this->userType();
+        $leaveApplication->save();
+        return $leaveApplication;
+    }
+
 }

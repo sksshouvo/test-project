@@ -26,11 +26,10 @@ class StoreLeaveApplicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            
             "start_date" => "required|date",
             "end_date"   => ["required", "date", new CrossDateCheck, new CheckLeave],
             "leave_type" => "required",
-            "reason"       => "nullable|string"
+            "reason"     => "nullable|string"
         ];
     }
 }

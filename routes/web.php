@@ -37,6 +37,9 @@ Route::middleware([AdminAuth::class])->group(function () {
     Route::group(['prefix' => 'admin'], function() {
         Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
         Route::post('logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
+        
+        Route::get('leaves', [LeaveApplicationController::class, 'listForAdmin'])->name('admin.leaves');
+        Route::put('leave/{id}', [LeaveApplicationController::class, 'updateStatus'])->name('admin.leave.update');
 
         Route::get('profile', [AdminProfileController::class, 'edit'])->name('admin.profile.edit');
         Route::patch('profile', [AdminProfileController::class, 'update'])->name('admin.profile.update');
