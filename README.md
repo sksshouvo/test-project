@@ -12,7 +12,7 @@ It's very simple to install this project
 - Forth Step
 `npm install` (Make sure you have installed node js environment in your device)
 - Fifth Step
--- Configure the .env file
+* Configure the .env file
 - Sixth Step
 `php artisan migrate:fresh --seed`
 - Seventh Step
