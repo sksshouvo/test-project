@@ -11,8 +11,7 @@ It's very simple to install this project
 `composer install` (Make sure you have installed composer-setup in your device)
 - Forth Step
 `npm install` (Make sure you have installed node js environment in your device)
-- Fifth Step
-* Configure the .env file
+- Fifth Step Configure the .env file for databse connection and go to mysql server and create a desired database
 - Sixth Step
 `php artisan migrate:fresh --seed`
 - Seventh Step
