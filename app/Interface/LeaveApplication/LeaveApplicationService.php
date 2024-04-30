@@ -38,11 +38,11 @@ class LeaveApplicationService implements LeaveApplicationInterface {
     }
 
     public function getAll() : mixed {
-        return $this->leaveApplication->userTypeWisesFilter()->paginate(config('app.paginate_size'));
+        return $this->leaveApplication::with(['creator'])->userTypeWisesFilter()->get();
     }
 
     public function getSingle(int $id): mixed {
-        return $this->leaveApplication->findOrfail($id);
+        return $this->leaveApplication::with(['creator'])->findOrfail($id);
     }
     
     public function delete(int $id): mixed {
@@ -53,6 +53,10 @@ class LeaveApplicationService implements LeaveApplicationInterface {
         }
 
         return false;
+    }
+
+    public function statusWiseLeaveApplications($status): mixed {
+        return $this->leaveApplication::with(['creator'])->userTypeWisesFilter()->statusWiseFilter($status)->get();
     }
 
 }

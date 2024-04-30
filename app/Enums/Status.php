@@ -9,7 +9,7 @@ enum Status: string
 
     case PENDING     = 'pending';
     case IN_PROGRESS = 'in_progress';
-    case COMPLETE    = 'complete';
+    case APPROVED    = 'approved';
     case FAILED      = 'failed';
     case REJECTED    = 'rejected';
     case NEED_DISCUSSION = "need-discussion";

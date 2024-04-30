@@ -33,7 +33,7 @@ class LeaveApplicationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-public function store(StoreLeaveApplicationRequest $request)
+    public function store(StoreLeaveApplicationRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -58,9 +58,9 @@ public function store(StoreLeaveApplicationRequest $request)
     /**
      * Display the specified resource.
      */
-    public function show(LeaveApplication $leaveApplication)
+    public function show($id)
     {
-        //
+        return $this->leaveApplicationService->getSingle($id);
     }
 
     /**
@@ -82,8 +82,18 @@ public function store(StoreLeaveApplicationRequest $request)
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(LeaveApplication $leaveApplication)
+    public function destroy($id)
     {
-        //
+        $leaveDelete =  $this->leaveApplicationService->delete($id);
+
+        if ($leaveDelete) {
+            return Inertia::render('Dashboard', [
+                'logged_in' => true,
+                'user_type' => 'Employee',
+                'page_name' => 'Dashboard',
+                'leave_applications' => $this->leaveApplicationService->getAll(),
+                'form_submit' => true
+            ]);
+        }
     }
 }

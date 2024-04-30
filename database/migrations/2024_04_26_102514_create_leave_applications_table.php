@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string("creator_type")->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->string("updator_type")->nullable();
+            $table->text("comment")->nullable();
             $table->timestamps();
         });
     }
