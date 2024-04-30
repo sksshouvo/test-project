@@ -13,4 +13,8 @@ interface LeaveApplicationInterface
     public function getSingle(int $id): mixed;
     
     public function delete(int $id): mixed;
+
+    public function statusWiseLeaveApplications(string $status): mixed;
+    
+    public function updateStatus(int $id, string $status, string $comment): mixed;
 }

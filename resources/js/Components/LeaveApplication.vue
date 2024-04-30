@@ -6,6 +6,10 @@ import { ref } from "vue";
 
 const CreateForm = ref(false);
 
+const toggleForm = () => {
+  CreateForm.value = !CreateForm.value;
+};
+
 </script>
 
 <template>
@@ -17,12 +21,11 @@ const CreateForm = ref(false);
     </div>
 
     <div class="flex-initial pl-5">
-      <PrimaryButton @click="CreateForm = true" v-if="!CreateForm"> Create leave </PrimaryButton>
-      <PrimaryButton @click="CreateForm = false" v-else> Back </PrimaryButton>
+      <PrimaryButton @click="toggleForm"> {{ CreateForm ? 'Back' : 'Create leave' }} </PrimaryButton>
     </div>
   </div>
 
-  <CreateLeaveForm v-if="CreateForm" />
+  <CreateLeaveForm v-if='CreateForm' />
   <List v-else/>
 
 

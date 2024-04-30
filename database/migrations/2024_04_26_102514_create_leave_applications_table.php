@@ -19,7 +19,12 @@ return new class extends Migration
             $table->date("end_date")->nullable();
             $table->enum("leave_type", LeaveType::array())->nullable();
             $table->enum("status", Status::array())->deafult('pending');
-            $table->text("note")->nullable();
+            $table->text("reason")->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->string("creator_type")->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->string("updator_type")->nullable();
+            $table->text("comment")->nullable();
             $table->timestamps();
         });
     }
