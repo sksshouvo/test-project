@@ -20,4 +20,4 @@ It's very simple to install this project
 - Eighth Step
 `npm run dev`
 
-# Your Application good to go
+# Your Application is good to go
