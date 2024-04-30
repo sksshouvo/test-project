@@ -45,6 +45,9 @@ const updateLeave = (leaveAppId, status) => {
     onSuccess: () => {
       closeModal()
       form.reset()
+    },
+    onError: () => {
+      
     }
   });
 };
