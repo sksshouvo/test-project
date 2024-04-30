@@ -114,6 +114,7 @@ class LeaveApplicationController extends Controller
         
         return Inertia::render('Admin/Leaves', [
             'admin' => Auth::guard('admin')->user(),
+            'errors' => !$leaveUpdate ? __('This leave request status is been changed') : NULL,
             'logged_in' => true,
             'user_type' => 'Admin',
             'page_name' => 'Leave Application List',

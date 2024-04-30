@@ -9,7 +9,7 @@ import { ref } from "vue";
 
 const form = useForm({
   id: "",
-  comment: ""
+  comment: "",
 });
 
 const isShowModal = ref(false);
@@ -43,12 +43,9 @@ const updateLeave = (leaveAppId, status) => {
   form.put(route(url, form), {
     preserveScroll: true,
     onSuccess: () => {
-      closeModal()
-      form.reset()
+      closeModal();
+      form.reset();
     },
-    onError: () => {
-      
-    }
   });
 };
 </script>
@@ -58,6 +55,18 @@ const updateLeave = (leaveAppId, status) => {
     <div class="flex flex-col">
       <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+          <!-- <div
+            class="bg-red-100 border-t-4 border-red-500 rounded-b text-teal-900 px-4 py-3 shadow-md mt-2"
+            role="alert"
+            v-if="$page.props.errors && $page.props.admin"
+          >
+            <div class="flex">
+              <div class="py-1"></div>
+              <div>
+                <p class="font-bold">{{ $page.props.errors }}</p>
+              </div>
+            </div>
+          </div> -->
           <div class="overflow-hidden">
             <table
               class="min-w-full text-left text-sm font-light text-surface dark:text-white"
