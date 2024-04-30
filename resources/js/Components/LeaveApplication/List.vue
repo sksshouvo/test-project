@@ -138,14 +138,14 @@ const updateLeave = (leaveAppId, status) => {
     <Details :leave_details="LeaveDetails" v-model="form.comment" />
     <div class="m-6 flex justify-end">
       <PrimaryButton
-        v-if="$page.props.admin"
+        v-if="$page.props.admin && LeaveDetails.status == 'PENDING'"
         @click="updateLeave(LeaveDetails.id, 'approved')"
         class="mr-5"
       >
         Approve
       </PrimaryButton>
       <DangerButton
-        v-if="$page.props.admin"
+        v-if="$page.props.admin && LeaveDetails.status == 'PENDING'"
         @click="updateLeave(LeaveDetails.id, 'rejected')"
         class="mr-5"
       >

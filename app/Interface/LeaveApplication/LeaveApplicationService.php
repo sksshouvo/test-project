@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Interface\LeaveApplication;
+use App\Events\UpdateLeaveApplicationStatus;
 use App\Models\LeaveApplication;
 use App\Traits\UserUtils;
 
@@ -67,6 +68,7 @@ class LeaveApplicationService implements LeaveApplicationInterface {
             $leaveApplication->comment = $comment ?? NULL;
             $leaveApplication->updator_type = $this->userType();
             $leaveApplication->save();
+            UpdateLeaveApplicationStatus::dispatch($leaveApplication);
             return $leaveApplication;
         }
 

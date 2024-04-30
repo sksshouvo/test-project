@@ -82,6 +82,7 @@ const submit = () => {
         </label>
       </div>
       <div class="w-full py-5">
+        <p>Credentials</p>
         <p>Email: testuser@test.com</p>
         <p>Password: 123456789</p>
       </div>
