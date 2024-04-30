@@ -20,7 +20,6 @@ class AdminAuth
     {
         // Check if the user is authenticated as an admin
         if (Auth::guard('admin')->check()) {
-            \Log::info($request->all());
             // User is authenticated as an admin, allow the request to continue
             return $next($request);
         }

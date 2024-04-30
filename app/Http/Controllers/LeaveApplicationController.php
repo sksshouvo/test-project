@@ -111,7 +111,6 @@ class LeaveApplicationController extends Controller
 
     public function updateStatus(AdminUpdateLeaveApplicationRequest $request, $id) {
         $leaveUpdate = $this->leaveApplicationService->updateStatus($id, $request->status, $request->comment);
-        
         return Inertia::render('Admin/Leaves', [
             'admin' => Auth::guard('admin')->user(),
             'errors' => !$leaveUpdate ? __('This leave request status is been changed') : NULL,
