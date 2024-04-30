@@ -23,9 +23,8 @@ import { Head, Link } from "@inertiajs/vue3";
           >
             <Link href="/admin/leaves" :class="classes">
                 <p class="p-5">Leave Applications</p>  
-                <p class="px-5">Total Leave Requets: {{$page.props.total_leaves}}</p>  
-                <p class="px-5">Total Pending Requets: {{$page.props.total_pending_leaves}}</p>  
-                <p class="px-5">Total Approved Requets: {{$page.props.total_approved_leaves}}</p>  
+                <p class="px-5">Total Leave Requets: {{$page.props.total_leaves}}, Total Pending Requets: {{$page.props.total_pending_leaves}}</p>  
+                <p class="px-5">Total Approved Requets: {{$page.props.total_approved_leaves}}, Total Rejected Requets: {{$page.props.total_rejected_leaves}}</p>  
             </Link>
           </div>
           <div

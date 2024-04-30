@@ -20,6 +20,7 @@ class DashboardController extends Controller
         $allLeaveApps = $this->leaveApplicationService->getAll();
         $totalPendingLeaves = $this->leaveApplicationService->statusWiseLeaveApplications(status: "pending");
         $totalApprovedLeaves = $this->leaveApplicationService->statusWiseLeaveApplications(status: "approved");
+        $totalRejectedLeaves = $this->leaveApplicationService->statusWiseLeaveApplications(status: "rejected");
 
         return Inertia::render("Admin/Dashboard", [
             'admin' => $this->auth,
@@ -28,7 +29,8 @@ class DashboardController extends Controller
             'page_name' => 'Dashboard',
             'total_leaves' => $allLeaveApps->count(),
             'total_pending_leaves' => $totalPendingLeaves->count(),
-            'total_approved_leaves' => $totalApprovedLeaves->count()
+            'total_approved_leaves' => $totalApprovedLeaves->count(),
+            'total_rejected_leaves' => $totalRejectedLeaves->count()
         ]);
     }
 }
