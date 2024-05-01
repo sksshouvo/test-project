@@ -30,7 +30,10 @@ import { Head, Link } from "@inertiajs/vue3";
           <div
             class="rounded-md shadow-md h-40 w-1/2 m-10 bg-gradient-to-r from-cyan-500 to-blue-500 flex-initial"
           >
+          <Link href="/admin/users" :class="classes">
             <p class="p-5">Manage Users</p>
+          </Link>
+            
           </div>
         </div>
       </div>
